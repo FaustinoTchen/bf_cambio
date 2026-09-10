@@ -1,5 +1,5 @@
-Flask==3.0.2
-Flask-Mail==0.9.1
-Flask-SocketIO==5.3.6
-gunicorn==21.2.0
-email-validator==2.1.1
+Flask
+Flask-Mail
+Flask-SocketIO
+gunicorn
+cryptography
