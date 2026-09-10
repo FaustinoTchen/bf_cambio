@@ -7,7 +7,7 @@ from flask_socketio import SocketIO, emit, join_room
 from werkzeug.security import generate_password_hash, check_password_hash
 from cryptography.fernet import Fernet
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='modelos', static_folder='estático')
 app.secret_key = os.environ.get('SECRET_KEY', 'bf_digital_exchange_secure_key_2026')
 
 ENCRYPTION_KEY = os.environ.get('ENCRYPTION_KEY')
@@ -473,7 +473,7 @@ def handle_message(data):
 
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute("messages (room, usuario, texto, tipo) VALUES (?, ?, ?, ?)", (room, usuario, texto, tipo))
+    cursor.execute("INSERT INTO messages (room, usuario, texto, tipo) VALUES (?, ?, ?, ?)", (room, usuario, texto, tipo))
     conn.commit()
     conn.close()
 
