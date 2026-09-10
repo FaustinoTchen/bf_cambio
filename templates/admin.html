@@ -3,57 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Executivo - BF Digital Exchange</title>
+    <title>Central Executiva de Gestão - BF Digital Exchange</title>
     <style>
         :root {
             --bg-deep: #030712;
             --bg-card: #0f172a;
+            --bg-surface: #1e293b;
             --accent: #facc15;
+            --accent-glow: rgba(250, 204, 21, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #1e293b;
+            --border: #334155;
             --success: #22c55e;
             --danger: #ef4444;
             --warning: #f59e0b;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-deep); color: var(--text-main); line-height: 1.6; }
         
-        header { background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        header { 
+            background: rgba(3, 7, 18, 0.85); 
+            backdrop-filter: blur(16px); 
+            border-bottom: 1px solid var(--border); 
+            padding: 15px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-area img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
-        .nav-admin { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .btn-logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .btn-chats { background: rgba(250, 204, 21, 0.1); color: var(--accent); border: 1px solid rgba(250, 204, 21, 0.3); padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .logo-icon { 
+            width: 40px; height: 40px; 
+            background: linear-gradient(135deg, #facc15, #ca8a04); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 18px; font-weight: 800; color: #030712;
+        }
+        .nav-admin { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .btn-logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; transition: 0.2s; }
+        .btn-logout:hover { background: var(--danger); color: #fff; }
+        .btn-chats { background: rgba(250, 204, 21, 0.1); color: var(--accent); border: 1px solid rgba(250, 204, 21, 0.3); padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; transition: 0.2s; }
+        .btn-chats:hover { background: var(--accent); color: #030712; }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 25px; overflow-x: auto; }
-        .card h2 { font-size: 15px; color: #fff; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; text-transform: uppercase; }
+        .container { max-width: 1200px; margin: 35px auto; padding: 0 20px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 30px; overflow-x: auto; }
+        .card h2 { font-size: 16px; color: #fff; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; min-width: 700px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-        th { background: #1e293b; color: var(--text-muted); text-transform: uppercase; font-size: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; min-width: 750px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: var(--bg-surface); color: var(--text-muted); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
         
-        .form-inline { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-        .form-inline input { padding: 6px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; width: 100px; font-size: 12px; }
+        .form-inline { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .form-inline input { padding: 8px 10px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; width: 110px; font-size: 13px; outline: none; }
+        .form-inline input:focus { border-color: var(--accent); }
         
-        .btn { background: var(--accent); color: #030712; padding: 6px 12px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-decoration: none; font-size: 11px; text-transform: uppercase; display: inline-block; }
+        .btn { background: var(--accent); color: #030712; padding: 8px 14px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; text-decoration: none; font-size: 11px; text-transform: uppercase; display: inline-block; transition: opacity 0.2s; }
         .btn:hover { opacity: 0.9; }
         .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
         .btn-success { background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
         .btn-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
 
-        .badge { padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .badge { padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .badge-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
         .badge-approved { background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
         .badge-denied { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
 
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 15px; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--border); padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; }
-        .modal-content h3 { color: #fff; margin-bottom: 12px; font-size: 15px; text-transform: uppercase; }
-        .modal-content input, .modal-content textarea, .modal-content select { width: 100%; padding: 10px; margin-bottom: 10px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size: 12px; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--border); padding: 30px; border-radius: 16px; width: 100%; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-content h3 { color: #fff; margin-bottom: 15px; font-size: 16px; text-transform: uppercase; }
+        .modal-content input, .modal-content textarea, .modal-content select { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 13px; outline: none; }
+        .modal-content input:focus, .modal-content textarea:focus, .modal-content select:focus { border-color: var(--accent); }
 
-        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 20px; font-size: 11px; text-transform: uppercase; margin-top: 40px; }
+        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 25px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-top: 40px; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
@@ -61,18 +87,18 @@
 
     <header>
         <div class="logo-area">
-            <img src="{{ url_for('static', filename='bf.jpg') }}" alt="BF Logo">
+            <div class="logo-icon">BF</div>
             <div>
-                <span style="font-size: 14px; font-weight: 800; color: #fff; letter-spacing: 1px; display: block; text-transform: uppercase;">BF Digital Exchange</span>
-                <span style="font-size: 9px; color: var(--text-muted); text-transform: uppercase;">Admin Control Center</span>
+                <span style="font-size: 15px; font-weight: 800; color: #fff; letter-spacing: 1px; display: block; text-transform: uppercase;">BF Digital Exchange</span>
+                <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Painel do Administrador Global</span>
             </div>
         </div>
         <div class="nav-admin">
-            <div style="position: relative; cursor: pointer;" onclick="abrirNotificacoes()" title="Notificações">
+            <div style="position: relative; cursor: pointer; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);" onclick="abrirNotificacoes()" title="Notificações">
                 <span style="font-size: 18px;">🔔</span>
-                <span id="notifBadge" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 50%; width: 15px; height: 15px; font-size: 9px; display: none; justify-content: center; align-items: center; font-weight: bold;">!</span>
+                <span id="notifBadge" style="position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; display: none; justify-content: center; align-items: center; font-weight: bold; border: 2px solid var(--bg-deep);">!</span>
             </div>
-            <a href="/admin_chats" class="btn-chats">Chats</a>
+            <a href="/admin_chats" class="btn-chats">Chats Executivos</a>
             <a href="/logout" class="btn-logout">Sair</a>
         </div>
     </header>
@@ -80,23 +106,22 @@
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <div style="margin-bottom: 20px;">
+                <div style="margin-bottom: 25px;">
                     {% for category, message in messages %}
-                        <div style="padding: 12px 16px; background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 8px; font-size: 13px; margin-bottom: 8px;">{{ message }}</div>
+                        <div style="padding: 14px 18px; background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 10px; font-size: 13px; margin-bottom: 8px; font-weight: 600;">{{ message }}</div>
                     {% endfor %}
                 </div>
             {% endif %}
         {% endwith %}
 
-        <!-- APENAS O ADMIN PRINCIPAL PODE CRIAR NOVOS GESTORES -->
         {% if is_main_admin %}
         <div class="card">
-            <h2>Registar Novo Gestor (Exclusivo Admin Principal)</h2>
-            <form action="/create_admin" method="POST" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 12px;">
-                <input type="text" name="nome" placeholder="Nome" required style="padding: 9px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size:12px;">
-                <input type="email" name="email" placeholder="E-mail" required style="padding: 9px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size:12px;">
-                <input type="text" name="telefone" placeholder="Telefone" required style="padding: 9px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size:12px;">
-                <input type="password" name="password" placeholder="Palavra-passe" required style="padding: 9px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size:12px;">
+            <h2>Registar Novo Gestor (Exclusivo Administrador Principal)</h2>
+            <form action="/create_admin" method="POST" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px;">
+                <input type="text" name="nome" placeholder="Nome Completo" required style="padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;">
+                <input type="email" name="email" placeholder="E-mail Corporativo" required style="padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;">
+                <input type="text" name="telefone" placeholder="Telemóvel" required style="padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;">
+                <input type="password" name="password" placeholder="Palavra-passe Secreta" required style="padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;">
                 <button type="submit" class="btn">Criar Gestor</button>
             </form>
         </div>
@@ -107,10 +132,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Par</th>
+                        <th>Par de Divisas</th>
                         <th>Nós Comprar (100)</th>
                         <th>Nós Vender (100)</th>
-                        <th>Atualizar</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,10 +167,10 @@
                         <th>E-mail</th>
                         <th>Telefone</th>
                         {% if is_main_admin %}
-                        <th>Palavra-Passe (Admin Principal)</th>
+                        <th>Palavra-Passe (Admin)</th>
                         {% endif %}
                         <th>Estado</th>
-                        <th>Ações</th>
+                        <th>Ações Executivas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -155,7 +180,7 @@
                         <td>{{ u[2] }}</td>
                         <td>{{ u[3] }}</td>
                         {% if is_main_admin %}
-                        <td><code style="background: rgba(56,189,248,0.1); color: var(--accent); padding: 3px 6px; border-radius: 4px; font-weight: bold;">{{ u[7] }}</code></td>
+                        <td><code style="background: rgba(250,204,21,0.1); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-weight: 700;">{{ u[7] }}</code></td>
                         {% endif %}
                         <td>
                             {% if u[6] == 1 %}
@@ -171,16 +196,16 @@
                         <td>
                             {% if u[6] != 1 %}
                                 {% if u[5] != 'Aprovado' %}
-                                    <a href="/approve_user/{{ u[0] }}" class="btn btn-success" style="margin-right: 3px;">Aprovar</a>
+                                    <a href="/approve_user/{{ u[0] }}" class="btn btn-success" style="margin-right: 4px;">Aprovar</a>
                                 {% endif %}
                                 {% if u[5] != 'Negado' %}
-                                    <a href="/reject_user/{{ u[0] }}" class="btn btn-danger" style="margin-right: 3px;">Negar</a>
+                                    <a href="/reject_user/{{ u[0] }}" class="btn btn-danger" style="margin-right: 4px;">Negar</a>
                                 {% endif %}
-                                <button class="btn btn-warning" onclick="openEditModal('{{ u[0] }}', '{{ u[1] }}', '{{ u[2] }}', '{{ u[3] }}', '{{ u[5] }}', '{{ u[7] }}')">Editar</button>
-                                <button class="btn" onclick="openNotifyModal('{{ u[0] }}', '{{ u[1] }}')" style="background:var(--accent); color:#030712;">Email</button>
-                                <a href="/delete_user/{{ u[0] }}" class="btn btn-danger" onclick="return confirm('Eliminar?')">Apagar</a>
+                                <button class="btn btn-warning" style="margin-right: 4px;" onclick="openEditModal('{{ u[0] }}', '{{ u[1] }}', '{{ u[2] }}', '{{ u[3] }}', '{{ u[5] }}', '{{ u[7] }}')">Editar</button>
+                                <button class="btn" style="background: var(--accent); color: #030712; margin-right: 4px;" onclick="openNotifyModal('{{ u[0] }}', '{{ u[1] }}')">Email</button>
+                                <a href="/delete_user/{{ u[0] }}" class="btn btn-danger" onclick="return confirm('Tem certeza que pretende eliminar este registo?')">Apagar</a>
                             {% else %}
-                                <span style="font-size: 10px; color: var(--text-muted);">Core</span>
+                                <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Core System</span>
                             {% endif %}
                         </td>
                     </tr>
@@ -193,9 +218,9 @@
     <!-- Modais -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3>Editar Utilizador & Palavra-passe</h3>
+            <h3>Editar Utilizador & Password</h3>
             <form id="editForm" method="POST">
-                <input type="text" id="editName" name="nome" required placeholder="Nome">
+                <input type="text" id="editName" name="nome" required placeholder="Nome Completo">
                 <input type="email" id="editEmail" name="email" required placeholder="E-mail">
                 <input type="text" id="editPhone" name="telefone" required placeholder="Telefone">
                 <input type="text" id="editPassword" name="password" required placeholder="Palavra-passe">
@@ -204,8 +229,8 @@
                     <option value="Negado">Negado</option>
                     <option value="Pendente">Pendente</option>
                 </select>
-                <button type="submit" class="btn" style="width:100%; margin-top:10px;">Salvar Alterações</button>
-                <button type="button" class="btn btn-danger" style="width:100%; margin-top:8px;" onclick="closeModals()">Cancelar</button>
+                <button type="submit" class="btn" style="width:100%; margin-top:5px; padding: 12px;">Salvar Alterações</button>
+                <button type="button" class="btn btn-danger" style="width:100%; margin-top:10px; padding: 12px;" onclick="closeModals()">Cancelar</button>
             </form>
         </div>
     </div>
@@ -214,16 +239,16 @@
         <div class="modal-content">
             <h3 id="notifyTitle">Notificar Cliente</h3>
             <form id="notifyForm" method="POST">
-                <input type="text" name="assunto" required placeholder="Assunto">
-                <textarea name="mensagem" rows="3" required placeholder="Mensagem..."></textarea>
-                <button type="submit" class="btn" style="width:100%; margin-top:10px;">Enviar E-mail</button>
-                <button type="button" class="btn btn-danger" style="width:100%; margin-top:8px;" onclick="closeModals()">Cancelar</button>
+                <input type="text" name="assunto" required placeholder="Assunto do E-mail">
+                <textarea name="mensagem" rows="4" required placeholder="Escreva a mensagem oficial..."></textarea>
+                <button type="submit" class="btn" style="width:100%; margin-top:5px; padding: 12px;">Enviar E-mail</button>
+                <button type="button" class="btn btn-danger" style="width:100%; margin-top:10px; padding: 12px;" onclick="closeModals()">Cancelar</button>
             </form>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 BF Digital Exchange. Global Cloud Network.
+        &copy; 2026 BF Digital Exchange. Global Cloud Network. Todos os direitos reservados.
     </footer>
 
     <script>
@@ -236,7 +261,7 @@
         });
 
         function abrirNotificacoes() {
-            alert("Nova atividade ou mensagem de cliente detetada!");
+            alert("Nova atividade ou mensagem de cliente detetada na rede!");
             const badge = document.getElementById('notifBadge');
             if(badge) badge.style.display = 'none';
         }

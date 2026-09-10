@@ -3,90 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BF Digital Exchange | Prestação de Serviço & Câmbio</title>
+    <title>BF Digital Exchange | Plataforma Executiva de Câmbio e Serviços</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400,500,600,700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #030712;
             --bg-card: #0f172a;
-            --accent: #38bdf8;
+            --bg-surface: #1e293b;
+            --accent: #facc15;
+            --accent-glow: rgba(250, 204, 21, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #1e293b;
+            --border: #334155;
             --success: #22c55e;
+            --danger: #ef4444;
             --warning: #f59e0b;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg-deep); color: var(--text-main); line-height: 1.6; }
-        
-        header { background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 18px; font-weight: 800; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
-        nav a { color: var(--text-muted); text-decoration: none; margin-left: 25px; font-size: 13px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-deep); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+        header { 
+            background: rgba(3, 7, 18, 0.85); 
+            backdrop-filter: blur(16px); 
+            border-bottom: 1px solid var(--border); 
+            padding: 20px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { 
+            width: 42px; height: 42px; 
+            background: linear-gradient(135deg, #facc15, #ca8a04); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 20px; font-weight: 800; color: #030712;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .logo-text { font-size: 16px; font-weight: 800; letter-spacing: 1.5px; color: #fff; text-transform: uppercase; }
+        .logo-sub { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; }
+
+        nav { display: flex; align-items: center; gap: 30px; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; text-transform: uppercase; transition: color 0.2s; }
         nav a:hover { color: var(--accent); }
+        .nav-btn { 
+            background: var(--accent); color: #030712; padding: 10px 20px; border-radius: 8px; 
+            font-weight: 700; text-transform: uppercase; font-size: 12px; transition: opacity 0.2s; text-decoration: none;
+        }
+        .nav-btn:hover { opacity: 0.9; }
 
-        .hero { text-align: center; padding: 80px 20px 50px 20px; background: radial-gradient(circle at center, #0f172a 0%, #030712 70%); border-bottom: 1px solid var(--border); }
-        .hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 15px; color: #fff; }
-        .hero p { font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .hero { 
+            text-align: center; 
+            padding: 90px 20px 60px 20px; 
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 1) 70%); 
+            border-bottom: 1px solid var(--border); 
+            position: relative;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 15px; color: #fff; letter-spacing: -0.5px; }
+        .hero p { font-size: 16px; color: var(--text-muted); max-width: 650px; margin: 0 auto; }
 
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        
-        .flash-messages { margin-bottom: 25px; }
-        .alert { padding: 14px 18px; border-radius: 8px; font-size: 14px; margin-bottom: 10px; border: 1px solid transparent; }
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+
+        .flash-messages { margin-bottom: 30px; }
+        .alert { padding: 15px 20px; border-radius: 10px; font-size: 14px; margin-bottom: 12px; border: 1px solid transparent; font-weight: 500; }
         .alert-success { background: rgba(34, 197, 94, 0.1); color: var(--success); border-color: rgba(34, 197, 94, 0.2); }
-        .alert-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
+        .alert-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border-color: rgba(239, 68, 68, 0.2); }
         .alert-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); border-color: rgba(245, 158, 11, 0.2); }
 
-        .rates-section { margin-bottom: 50px; text-align: center; }
-        .rates-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-        .rates-section p { font-size: 12px; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .calc-wrapper {
+            background: linear-gradient(135deg, var(--bg-card), #111827);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent), #eab308);
+        }
+        .calc-wrapper h2 { font-size: 22px; color: #fff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .calc-wrapper p { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
         
-        .rates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .rate-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; text-align: left; position: relative; overflow: hidden; }
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; align-items: center; }
+        .calc-field label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .calc-field select, .calc-field input {
+            width: 100%; padding: 14px; background: var(--bg-deep); border: 1px solid var(--border);
+            border-radius: 10px; color: #fff; font-size: 15px; font-weight: 600; outline: none; transition: border-color 0.2s;
+        }
+        .calc-field select:focus, .calc-field input:focus { border-color: var(--accent); }
+        
+        .calc-result-box {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .calc-result-box span { display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: 700; letter-spacing: 1px; }
+        .calc-result-box strong { font-size: 22px; color: var(--accent); font-family: monospace; font-weight: 800; }
+
+        .rates-section { margin-bottom: 60px; text-align: center; }
+        .rates-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .rates-section p { font-size: 12px; color: var(--text-muted); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1.5px; }
+        
+        .rates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
+        .rate-card { 
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; 
+            padding: 30px; text-align: left; position: relative; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .rate-card:hover { transform: translateY(-4px); border-color: var(--accent); }
         .rate-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); }
-        .rate-card h3 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 15px; }
-        .rate-values { display: flex; flex-direction: column; gap: 12px; }
-        .rate-box-item { background: rgba(30, 41, 59, 0.6); padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .rate-box-item span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
-        .rate-box-item strong { font-size: 16px; color: var(--accent); }
+        .rate-card h3 { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+        
+        .rate-values { display: flex; flex-direction: column; gap: 15px; }
+        .rate-box-item { 
+            background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; 
+        }
+        .rate-box-item span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .rate-box-item strong { font-size: 18px; color: var(--accent); font-family: monospace; }
 
-        .rules-box { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-left: 4px solid var(--warning); padding: 20px; border-radius: 8px; margin-bottom: 50px; font-size: 13px; color: #fbbf24; }
-        .rules-box h3 { margin-bottom: 8px; font-size: 14px; text-transform: uppercase; }
-        .rules-box p { margin-bottom: 5px; color: #e2e8f0; }
+        .security-banner { 
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(15, 23, 42, 0.9)); 
+            border: 1px solid rgba(245, 158, 11, 0.25); border-left: 5px solid var(--warning); 
+            padding: 30px; border-radius: 14px; margin-bottom: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+        }
+        .security-banner h3 { margin-bottom: 12px; font-size: 16px; text-transform: uppercase; color: #fbbf24; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+        .security-banner p { margin-bottom: 8px; color: #cbd5e1; font-size: 14px; }
 
-        .accordion-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 60px; }
-        .accordion-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .accordion-header { background: #1e293b; color: #fff; padding: 18px 25px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+        .accordion-container { display: flex; flex-direction: column; gap: 20px; max-width: 750px; margin: 0 auto 80px auto; }
+        .accordion-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .accordion-header { 
+            background: #1e293b; color: #fff; padding: 20px 30px; font-size: 15px; font-weight: 700; 
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
         .accordion-header:hover { background: #334155; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out, padding 0.35s ease-out; padding: 0 25px; background: var(--bg-card); }
-        .accordion-content.active { max-height: 800px; padding: 25px; border-top: 1px solid var(--border); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 30px; background: var(--bg-card); }
+        .accordion-content.active { max-height: 900px; padding: 35px 30px; border-top: 1px solid var(--border); }
 
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; }
-        .form-group input { width: 100%; padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px; }
-        .form-group input:focus { outline: none; border-color: var(--accent); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input { 
+            width: 100%; padding: 14px 16px; background: var(--bg-deep); border: 1px solid var(--border); 
+            border-radius: 10px; color: #fff; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s; 
+        }
+        .form-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
         
-        .btn { display: block; width: 100%; background: var(--accent); color: #030712; padding: 12px; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        .btn:hover { opacity: 0.9; }
+        .btn { 
+            display: block; width: 100%; background: var(--accent); color: #030712; padding: 15px; 
+            border: none; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; 
+            letter-spacing: 1px; transition: opacity 0.2s, transform 0.1s; box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .btn:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn-success { background: var(--success); color: #fff; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2); }
         
-        .links-rec { margin-top: 15px; text-align: center; font-size: 13px; }
-        .links-rec a { color: var(--accent); text-decoration: none; }
+        .links-rec { margin-top: 20px; text-align: center; font-size: 13px; }
+        .links-rec a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .links-rec a:hover { text-decoration: underline; }
 
-        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 25px; font-size: 12px; text-transform: uppercase; }
+        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 35px 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+        @media(max-width: 768px) {
+            header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            nav { gap: 15px; }
+            .hero h1 { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">&#9889; BF Digital Exchange</div>
+        <div class="logo-area">
+            <div class="logo-icon">BF</div>
+            <div>
+                <span class="logo-text">BF Digital Exchange</span>
+                <span class="logo-sub">Executive Financial Services</span>
+            </div>
+        </div>
         <nav>
-            <a href="#câmbios">Câmbios</a>
+            <a href="#cambios">Cotações</a>
+            <a href="#calculadora">Calculadora</a>
             <a href="#regras">Protocolo</a>
-            <a href="#acesso" onclick="toggleAccordion('loginContent')">Entrar / Registar</a>
+            <a href="#acesso" class="nav-btn" onclick="toggleAccordion('loginContent')">Área do Cliente</a>
         </nav>
     </header>
 
     <div class="hero">
         <h1>BF Digital Exchange</h1>
-        <p>Plataforma Oficial de Prestação de Serviço & Câmbio em Kwanzas (AOA)</p>
+        <p>Plataforma Executiva de Câmbio de Alta Segurança e Liquidação Imediata em Kwanzas (AOA)</p>
     </div>
 
     <div class="container">
@@ -101,21 +219,56 @@
             {% endif %}
         {% endwith %}
 
-        <div class="rates-section" id="câmbios">
-            <h2>Tabela de Cotações em Tempo Real (Kwanza - AOA)</h2>
-            <p>Conforme modelo oficial da empresa</p>
+        <!-- CALCULADORA CAMBIAL EM DESTAQUE -->
+        <div class="calc-wrapper" id="calculadora">
+            <h2>Calculadora Cambial Interativa</h2>
+            <p>Simule transações em tempo real com base nas cotações oficiais</p>
+            
+            <div class="calc-grid">
+                <div class="calc-field">
+                    <label>Tipo de Operação</label>
+                    <select id="homeTipo" onchange="calcularHomeCambio()">
+                        <option value="vender">Nós a Comprar (Cliente Vende)</option>
+                        <option value="comprar">Nós a Vender (Cliente Compra)</option>
+                    </select>
+                </div>
+                
+                <div class="calc-field">
+                    <label>Par de Divisas</label>
+                    <select id="homePar" onchange="calcularHomeCambio()">
+                        {% for rate in rates %}
+                        <option value="{{ rate[0] }}" data-compra="{{ rate[1] }}" data-venda="{{ rate[2] }}">{{ rate[0] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="calc-field">
+                    <label>Montante a Simular</label>
+                    <input type="number" id="homeMontante" value="100" min="1" oninput="calcularHomeCambio()">
+                </div>
+
+                <div class="calc-result-box">
+                    <span>Total Estimado em AOA</span>
+                    <strong id="homeResultado">0,00 AOA</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="rates-section" id="cambios">
+            <h2>Tabela de Cotações em Tempo Real</h2>
+            <p>Valores de referência oficiais atualizados pela mesa executiva</p>
             <div class="rates-grid">
                 {% for rate in rates %}
                 <div class="rate-card">
-                    <h3>{{ rate[0] }}</h3>
+                    <h3><span>{{ rate[0] }}</span> <span style="font-size: 12px; color: var(--success); font-weight: 500;">● Ativo</span></h3>
                     <div class="rate-values">
                         <div class="rate-box-item">
-                            <span>Nós a Vender:</span>
-                            <strong>100 = {{ "%.0f"|format(rate[2] * 100) }} AOA</strong>
+                            <span>Nós a Vender (100):</span>
+                            <strong>{{ "%.0f"|format(rate[2] * 100) }} AOA</strong>
                         </div>
                         <div class="rate-box-item">
-                            <span>Nós a Comprar:</span>
-                            <strong>100 = {{ "%.0f"|format(rate[1] * 100) }} AOA</strong>
+                            <span>Nós a Comprar (100):</span>
+                            <strong>{{ "%.0f"|format(rate[1] * 100) }} AOA</strong>
                         </div>
                     </div>
                 </div>
@@ -123,37 +276,37 @@
             </div>
         </div>
 
-        <div class="rules-box" id="regras">
-            <h3>&#9888; Protocolo de Segurança Financeira</h3>
-            <p>1. Transferências efetuadas estritamente a partir do <strong>mesmo IBAN</strong> titular registado.</p>
-            <p>2. Modalidade de liquidação imediata.</p>
-            <p>3. Obrigatório envio de comprovativos bancários originais em <strong>formato PDF</strong>.</p>
+        <div class="security-banner" id="regras">
+            <h3>🔒 Protocolo de Segurança Financeira & Compliance</h3>
+            <p>1. Todas as transferências bancárias devem ser efetuadas estritamente a partir do <strong>mesmo IBAN</strong> titular registado na plataforma.</p>
+            <p>2. Modalidade operacional de liquidação imediata com emissão de extratos oficiais.</p>
+            <p>3. É estritamente obrigatório o envio dos comprovativos bancários originais em <strong>formato PDF</strong> para validação por auditoria.</p>
         </div>
 
         <div class="accordion-container" id="acesso">
             
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion('loginContent')">
-                    <span>Fazer Login na Conta</span>
-                    <span>&#9660;</span>
+                    <span>🔐 Iniciar Sessão na Sala Executiva</span>
+                    <span>▼</span>
                 </div>
-                <div class="accordion-content" id="loginContent">
+                <div class="accordion-content active" id="loginContent">
                     <form action="/login" method="POST">
                         <div class="form-group">
                             <label>E-mail Cadastrado</label>
                             <input type="email" name="email" required placeholder="exemplo@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label>Número de Telefone</label>
+                            <label>Número de Telefone Oficial</label>
                             <input type="text" name="telefone" required placeholder="+244 9XX XXX XXX">
                         </div>
                         <div class="form-group">
                             <label>Palavra-passe Secreta</label>
                             <input type="password" name="password" required placeholder="••••••••">
                         </div>
-                        <button type="submit" class="btn">Entrar na Conta</button>
+                        <button type="submit" class="btn">Entrar no Sistema</button>
                         <div class="links-rec">
-                            <a href="/recover">Esqueceu a palavra-passe? Recuperar</a>
+                            <a href="/recover">Esqueceu a palavra-passe? Recuperar dados</a>
                         </div>
                     </form>
                 </div>
@@ -161,13 +314,13 @@
 
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion('registerContent')">
-                    <span>Criar Conta de Utilizador</span>
-                    <span>&#9660;</span>
+                    <span>📝 Solicitar Nova Conta de Utilizador</span>
+                    <span>▼</span>
                 </div>
                 <div class="accordion-content" id="registerContent">
                     <form action="/register" method="POST">
                         <div class="form-group">
-                            <label>Nome Completo</label>
+                            <label>Nome Completo (Conforme Documento)</label>
                             <input type="text" name="nome" required placeholder="Paulo Chende-Kumbi">
                         </div>
                         <div class="form-group">
@@ -175,7 +328,7 @@
                             <input type="email" name="email" required placeholder="exemplo@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label>Número de Telefone</label>
+                            <label>Número de Telemóvel com Indicativo</label>
                             <input type="text" name="telefone" required placeholder="+244 9XX XXX XXX">
                         </div>
                         <div class="form-group">
@@ -186,7 +339,7 @@
                             <label>Criar Palavra-passe Secreta</label>
                             <input type="password" name="password" required placeholder="••••••••">
                         </div>
-                        <button type="submit" class="btn" style="background: var(--success); color: #fff;">Registar Conta</button>
+                        <button type="submit" class="btn btn-success">Submeter Pedido de Registo</button>
                     </form>
                 </div>
             </div>
@@ -196,7 +349,7 @@
     </div>
 
     <footer>
-        &copy; 2026 BFE Digital Exchange. Luanda, Angola.
+        &copy; 2026 BF Digital Exchange. Luanda, Angola. Todos os direitos reservados.
     </footer>
 
     <script>
@@ -207,6 +360,24 @@
             contents.forEach(item => { item.classList.remove('active'); });
             if (!isOpen) { target.classList.add('active'); }
         }
+
+        function calcularHomeCambio() {
+            const tipo = document.getElementById('homeTipo').value;
+            const select = document.getElementById('homePar');
+            if(!select || select.options.length === 0) return;
+            const option = select.options[select.selectedIndex];
+            const compra = parseFloat(option.getAttribute('data-compra')) || 0;
+            const venda = parseFloat(option.getAttribute('data-venda')) || 0;
+            const montante = parseFloat(document.getElementById('homeMontante').value) || 0;
+            
+            let taxaAtiva = (tipo === 'vender') ? compra : venda;
+            const resultado = montante * taxaAtiva;
+            document.getElementById('homeResultado').innerText = resultado.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' AOA';
+        }
+
+        window.onload = function() {
+            calcularHomeCambio();
+        };
     </script>
 
 </body>

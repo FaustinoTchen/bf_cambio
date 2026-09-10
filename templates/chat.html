@@ -3,43 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Negociação com Gestor - BF Digital Exchange</title>
+    <title>Central de Atendimento Executivo - BF Digital Exchange</title>
     <style>
         :root {
             --bg-deep: #030712;
             --bg-card: #0f172a;
+            --bg-surface: #1e293b;
             --accent: #facc15;
+            --accent-glow: rgba(250, 204, 21, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #1e293b;
+            --border: #334155;
             --success: #22c55e;
             --danger: #ef4444;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-deep); color: var(--text-main); line-height: 1.6; }
         
-        header { background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header { 
+            background: rgba(3, 7, 18, 0.85); 
+            backdrop-filter: blur(16px); 
+            border-bottom: 1px solid var(--border); 
+            padding: 20px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-area img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
-        .btn-back { background: var(--border); color: #fff; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .logo-icon { 
+            width: 40px; height: 40px; 
+            background: linear-gradient(135deg, #facc15, #ca8a04); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 18px; font-weight: 800; color: #030712;
+        }
+        .btn-back { background: var(--bg-surface); color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; text-transform: uppercase; border: 1px solid var(--border); transition: 0.2s; }
+        .btn-back:hover { background: #334155; border-color: var(--accent); }
 
-        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         
-        .chat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .chat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .chat-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
-        .chat-header img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+        .chat-header img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
 
-        .chat-box { height: 350px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-deep); padding: 15px; overflow-y: scroll; margin-bottom: 20px; font-size: 13px; display: flex; flex-direction: column; gap: 10px; }
-        .message { padding: 10px 14px; border-radius: 8px; max-width: 70%; word-break: break-word; }
-        .message.sent { background: var(--accent); color: #030712; align-self: flex-end; font-weight: 500; }
-        .message.received { background: #1e293b; color: #fff; align-self: flex-start; }
+        .chat-box { height: 400px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-deep); padding: 20px; overflow-y: scroll; margin-bottom: 20px; font-size: 13px; display: flex; flex-direction: column; gap: 12px; }
+        .message { padding: 12px 16px; border-radius: 10px; max-width: 75%; word-break: break-word; line-height: 1.5; }
+        .message.sent { background: var(--accent); color: #030712; align-self: flex-end; font-weight: 600; box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2); }
+        .message.received { background: var(--bg-surface); color: #fff; align-self: flex-start; border: 1px solid var(--border); }
         
-        .chat-input-area { display: flex; gap: 10px; align-items: center; }
-        .chat-input-area input[type="text"] { flex: 1; padding: 12px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 8px; color: #fff; }
-        .btn-send { background: var(--accent); color: #030712; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 12px; }
-        .btn-pdf { background: #1e293b; color: var(--accent); border: 1px solid var(--accent); padding: 12px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
+        .chat-input-area { display: flex; gap: 12px; align-items: center; }
+        .chat-input-area input[type="text"] { flex: 1; padding: 14px 16px; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 10px; color: #fff; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .chat-input-area input[type="text"]:focus { border-color: var(--accent); }
+        .btn-send { background: var(--accent); color: #030712; padding: 14px 24px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; box-shadow: 0 4px 15px var(--accent-glow); transition: opacity 0.2s; }
+        .btn-send:hover { opacity: 0.9; }
+        .btn-pdf { background: var(--bg-surface); color: var(--accent); border: 1px solid var(--accent); padding: 14px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 12px; transition: background 0.2s; }
+        .btn-pdf:hover { background: rgba(250, 204, 21, 0.1); }
 
-        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 25px; font-size: 12px; text-transform: uppercase; margin-top: 50px; }
+        footer { background: var(--bg-card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 25px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-top: 50px; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
@@ -47,20 +71,22 @@
 
     <header>
         <div class="logo-area">
-            <img src="{{ url_for('static', filename='bf.jpg') }}" alt="BF Logo">
-            <span style="font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 1px;">BF Secure Chat</span>
+            <div class="logo-icon">BF</div>
+            <div>
+                <span style="font-size: 15px; font-weight: 800; color: #fff; letter-spacing: 1px; display: block; text-transform: uppercase;">BF Digital Exchange</span>
+                <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Central de Atendimento Executivo</span>
+            </div>
         </div>
         <a href="/dashboard" class="btn-back">Voltar ao Painel</a>
     </header>
 
     <div class="container">
-
         <div class="chat-card">
             <div class="chat-header">
                 <img src="{{ admin[3] }}" alt="Admin">
                 <div>
                     <h3 style="font-size: 16px; color: #fff; text-transform: uppercase;">Gestor: {{ admin[1] }}</h3>
-                    <span style="font-size: 11px; color: var(--success); text-transform: uppercase;">&#9679; Histórico Permanente & Seguro</span>
+                    <span style="font-size: 11px; color: var(--success); text-transform: uppercase; font-weight: 700;">&#9679; Histórico Permanente & Seguro</span>
                 </div>
             </div>
 
@@ -72,22 +98,21 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <div style="color: var(--text-muted); text-align: center; margin-top: 130px;">Canal seguro estabelecido. Histórico guardado permanentemente para prova e segurança.</div>
+                    <div style="color: var(--text-muted); text-align: center; margin-top: 130px; font-size: 13px;">Canal seguro estabelecido. Histórico guardado permanentemente para prova e segurança.</div>
                 {% endif %}
             </div>
 
             <div class="chat-input-area">
                 <input type="file" id="pdfFile" accept="application/pdf" style="display: none;" onchange="uploadPDF()">
-                <button class="btn-pdf" onclick="document.getElementById('pdfFile').click()">+ Anexar PDF</button>
-                <input type="text" id="mensagemInput" placeholder="Escreva a sua mensagem..." onkeypress="if(event.key === 'Enter') enviarMensagem()">
+                <button class="btn-pdf" onclick="document.getElementById('pdfFile').click()">+ PDF</button>
+                <input type="text" id="mensagemInput" placeholder="Escreva a sua mensagem de resposta..." onkeypress="if(event.key === 'Enter') enviarMensagem()">
                 <button class="btn-send" onclick="enviarMensagem()">Enviar</button>
             </div>
         </div>
-
     </div>
 
     <footer>
-        &copy; 2026 BF Digital Exchange. Luanda, Angola.
+        &copy; 2026 BF Digital Exchange. Luanda, Angola. Todos os direitos reservados.
     </footer>
 
     <script>
@@ -118,7 +143,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if(data.success) {
-                        const pdfMsg = `Comprovativo PDF submetido: <a href="${data.url}" target="_blank" style="color: #facc15; text-decoration: underline;">${data.filename}</a>`;
+                        const pdfMsg = `Comprovativo PDF submetido: <a href="${data.url}" target="_blank" style="color: var(--accent); text-decoration: underline;">${data.filename}</a>`;
                         socket.emit('send_message', { room: room, usuario: currentUser, texto: pdfMsg, tipo: 'pdf' });
                     } else {
                         alert("Erro ao carregar o ficheiro PDF.");
