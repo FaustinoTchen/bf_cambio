@@ -70,11 +70,21 @@ def init_db():
     cursor.execute("INSERT OR IGNORE INTO exchange_rates (par, compra, venda) VALUES ('EUR = AOA', 1300.0, 1320.0)")
     cursor.execute("INSERT OR IGNORE INTO exchange_rates (par, compra, venda) VALUES ('USD = AOA', 1200.0, 1220.0)")
     
+    # Atualiza ou cria o administrador principal com as credenciais corretas definitivas
     cursor.execute("SELECT * FROM users WHERE email = 'bfdigital53@gmail.com'")
-    if not cursor.fetchone():
-        hashed_admin_pw = generate_password_hash('admin123')
-        cursor.execute("INSERT INTO users (nome, email, telefone, data_nascimento, password, is_admin, status) VALUES (?, ?, ?, '1990-01-01', ?, 1, 'Aprovado')",
-                       ('Paulo Chende-Kumbi (Admin Principal)', 'bfdigital53@gmail.com', '+244900000001', hashed_admin_pw))
+    admin_user = cursor.fetchone()
+    hashed_admin_pw = generate_password_hash('faustino2001@')
+    
+    if not admin_user:
+        cursor.execute(
+            "INSERT INTO users (nome, email, telefone, data_nascimento, password, is_admin, status) VALUES (?, ?, ?, '1990-01-01', ?, 1, 'Aprovado')",
+            ('Paulo Chende-Kumbi (Admin Principal)', 'bfdigital53@gmail.com', '938058765', hashed_admin_pw)
+        )
+    else:
+        cursor.execute(
+            "UPDATE users SET telefone = ?, password = ?, is_admin = 1, status = 'Aprovado' WHERE email = 'bfdigital53@gmail.com'",
+            ('938058765', hashed_admin_pw)
+        )
             
     conn.commit()
     conn.close()
